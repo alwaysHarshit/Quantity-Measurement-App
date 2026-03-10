@@ -1,5 +1,6 @@
 package com.apps.quantitymeasurement;
 
+
 enum LengthUnit {
 
     FEET(12.0),
@@ -46,5 +47,33 @@ public class QuantityLength {
 
     private double convertToBaseUnit() {
         return value * unit.getConversionFactor();
+
     }
+
+    @Override
+    public String toString() {
+        return "%.2f %s";
+    }
+
+    public static double convert(double value, LengthUnit sourceUnit, LengthUnit targetUnit) {
+
+        //Validate value
+        if (!Double.isFinite(value)) {
+            throw new IllegalArgumentException("Value must be finite");
+        }
+
+        //Validate units
+        if (sourceUnit == null || targetUnit == null) {
+            throw new IllegalArgumentException("Units cannot be null");
+        }
+
+        // Convert source → base unit
+        double valueInBase = value * sourceUnit.getConversionFactor();
+
+        //Convert base → target
+        double result = valueInBase / targetUnit.getConversionFactor();
+
+        return Math.round(result * 100.0) / 100.0;
+    }
+
 }

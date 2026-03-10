@@ -23,16 +23,20 @@ public class QuantityMeasurementApp {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        try {
-            double v3= readDouble(reader, "Enter value 1: ");
-            double v4 = readDouble(reader, "Enter value 2: ");
-            QuantityLength q3=new QuantityLength(v3,LengthUnit.CM);
-            QuantityLength q4=new QuantityLength(v4,LengthUnit.YARDS);
-            boolean equals = q3.equals(q4);
-            System.out.printf("Are lengths both lenghts %.2f in cm and %.2f in yards are equal? %b",v3,v4,equals);
+            double result1 = QuantityLength.convert(
+                    1,
+                    LengthUnit.FEET,
+                    LengthUnit.INCHES
+            );
 
-        } catch (IOException e) {
-            System.out.println("Input error: " + e.getMessage());
-        }
+            double result2 = QuantityLength.convert(
+                    36,
+                    LengthUnit.INCHES,
+                    LengthUnit.YARDS
+            );
+
+            System.out.println("1 foot in inches: " + result1);
+            System.out.println("36 inches in yards: " + result2);
+
     }
 }
