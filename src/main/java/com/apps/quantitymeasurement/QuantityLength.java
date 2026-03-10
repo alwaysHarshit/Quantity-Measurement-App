@@ -75,7 +75,7 @@ public class QuantityLength {
         return Math.round(result * 100.0) / 100.0;
     }
 
-    public static QuantityLength add(QuantityLength length1, QuantityLength length2) {
+    public static QuantityLength add(QuantityLength length1, QuantityLength length2,LengthUnit targetUnit) {
         // Validate non-null
         if (length1 == null || length2 == null) {
             throw new IllegalArgumentException("Length objects cannot be null");
@@ -90,6 +90,8 @@ public class QuantityLength {
         if (!Double.isFinite(length1.value) || !Double.isFinite(length2.value)) {
             throw new IllegalArgumentException("Values must be finite");
         }
+        //validating target unit
+        if(targetUnit == null ) throw new IllegalArgumentException("Units cannot be null");
 
         // Convert both to base unit (inches)
         double value1InBase = length1.convertToBaseUnit();
@@ -99,13 +101,13 @@ public class QuantityLength {
         double sumInBase = value1InBase + value2InBase;
 
         // Convert sum to the unit of the first operand
-        double resultValue = sumInBase / length1.unit.getConversionFactor();
+        double resultValue = sumInBase / targetUnit.getConversionFactor();
 
-        return new QuantityLength(resultValue, length1.unit);
+        return new QuantityLength(resultValue,targetUnit);
     }
 
-    public QuantityLength add(QuantityLength other) {
-        return add(this, other);
+    public QuantityLength add(QuantityLength other,LengthUnit target) {
+        return add(this, other,target);
     }
 
 }
