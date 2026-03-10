@@ -24,16 +24,12 @@ public class QuantityMeasurementApp {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-
-            double value1 = readDouble(reader, "Enter value 1: ");
-            double value2 = readDouble(reader, "Enter value 2: ");
-
-            QuantityLength q1 = new QuantityLength(value1, LengthUnit.INCHES);
-            QuantityLength q2 = new QuantityLength(value2, LengthUnit.FEET);
-
-            boolean result = q1.equals(q2);
-
-            System.out.println("Are the two measurements equal? " + result);
+            double v3= readDouble(reader, "Enter value 1: ");
+            double v4 = readDouble(reader, "Enter value 2: ");
+            QuantityLength q3=new QuantityLength(v3,LengthUnit.CM);
+            QuantityLength q4=new QuantityLength(v4,LengthUnit.YARDS);
+            boolean equals = q3.equals(q4);
+            System.out.printf("Are lengths both lenghts %.2f in cm and %.2f in yards are equal? %b",v3,v4,equals);
 
         } catch (IOException e) {
             System.out.println("Input error: " + e.getMessage());
