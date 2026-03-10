@@ -38,7 +38,6 @@ public class QuantityLength {
             return false;
 
         QuantityLength other = (QuantityLength) obj;
-
         return Double.compare(
                 this.convertToBaseUnit(),
                 other.convertToBaseUnit()
@@ -52,7 +51,7 @@ public class QuantityLength {
 
     @Override
     public String toString() {
-        return "%.2f %s";
+        return String.format("%.2f %s", value,unit);
     }
 
     public static double convert(double value, LengthUnit sourceUnit, LengthUnit targetUnit) {
@@ -74,6 +73,39 @@ public class QuantityLength {
         double result = valueInBase / targetUnit.getConversionFactor();
 
         return Math.round(result * 100.0) / 100.0;
+    }
+
+    public static QuantityLength add(QuantityLength length1, QuantityLength length2) {
+        // Validate non-null
+        if (length1 == null || length2 == null) {
+            throw new IllegalArgumentException("Length objects cannot be null");
+        }
+
+        // Validate units
+        if (length1.unit == null || length2.unit == null) {
+            throw new IllegalArgumentException("Units cannot be null");
+        }
+
+        // Validate finite values
+        if (!Double.isFinite(length1.value) || !Double.isFinite(length2.value)) {
+            throw new IllegalArgumentException("Values must be finite");
+        }
+
+        // Convert both to base unit (inches)
+        double value1InBase = length1.convertToBaseUnit();
+        double value2InBase = length2.convertToBaseUnit();
+
+        // Add the converted values
+        double sumInBase = value1InBase + value2InBase;
+
+        // Convert sum to the unit of the first operand
+        double resultValue = sumInBase / length1.unit.getConversionFactor();
+
+        return new QuantityLength(resultValue, length1.unit);
+    }
+
+    public QuantityLength add(QuantityLength other) {
+        return add(this, other);
     }
 
 }
