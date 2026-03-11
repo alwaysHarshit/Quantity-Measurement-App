@@ -1,6 +1,6 @@
 package com.apps.quantitymeasurement;
 
-public enum LengthUnit {
+public enum LengthUnit implements IMeasurable {
 
     //base unit is feet
     FEET(1.0),
@@ -15,11 +15,23 @@ public enum LengthUnit {
     }
 
 
+    @Override
+    public double getConversionFactor() {
+        return this.conversionFactor;
+    }
+
+    @Override
     public double convertToBaseUnit(double value) {
         return value*conversionFactor;
     }
 
+    @Override
     public double convertFromBaseUnit(double value) {
         return value/conversionFactor;
+    }
+
+    @Override
+    public String getUnitName() {
+        return this.name();
     }
 }
