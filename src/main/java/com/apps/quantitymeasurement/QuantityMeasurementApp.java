@@ -5,11 +5,10 @@ public class QuantityMeasurementApp {
 
 
     public static void main(String[] args) {
-        QuantityLength quantityLength1 = new QuantityLength(1.0, LengthUnit.FEET);
-        QuantityLength quantityLength2 = new QuantityLength(2.0, LengthUnit.FEET);
+        QuantityWeight qw1=new QuantityWeight(1.0,WeightUnit.KILOGRAM);
+        QuantityWeight qw2=new QuantityWeight(2.0,WeightUnit.KILOGRAM);
+        System.out.println(qw1.equals(qw2));
 
-        QuantityLength add = QuantityLength.add(quantityLength1, quantityLength2, LengthUnit.CM);
-        System.out.println(add);
 
 
     }

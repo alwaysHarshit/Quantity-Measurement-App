@@ -3,7 +3,7 @@ package com.apps.quantitymeasurement;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuantityLengthTest {
+public class QuantityLengthTest {
 
     private static final double EPSILON = 1e-6;
 
