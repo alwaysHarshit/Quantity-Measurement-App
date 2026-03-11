@@ -43,12 +43,6 @@ public class QuantityClass<U extends IMeasurable> {
         ) == 0;
     }
 
-    @Override
-    public int hashCode() {
-        // Hash based on value in base unit for consistency with equals
-        double baseValue = unit.convertToBaseUnit(value);
-        return Double.hashCode(baseValue);
-    }
 
 
     public QuantityClass<U> convertTo(U targetUnit) {
