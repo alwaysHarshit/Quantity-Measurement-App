@@ -1,24 +1,5 @@
 package com.apps.quantitymeasurement;
 
-
-enum LengthUnit {
-
-    FEET(12.0),
-    INCHES(1.0),
-    YARDS(36.0),
-    CM(0.393701);
-
-    private final double conversionFactor;
-
-    LengthUnit(double conversionFactor) {
-        this.conversionFactor = conversionFactor;
-    }
-
-    public double getConversionFactor() {
-        return conversionFactor;
-    }
-}
-
 public class QuantityLength {
 
     private final double value;
@@ -39,15 +20,11 @@ public class QuantityLength {
 
         QuantityLength other = (QuantityLength) obj;
         return Double.compare(
-                this.convertToBaseUnit(),
-                other.convertToBaseUnit()
+                this.unit.convertToBaseUnit(value),
+                other.unit.convertToBaseUnit(value)
         ) == 0;
     }
 
-    private double convertToBaseUnit() {
-        return value * unit.getConversionFactor();
-
-    }
 
     @Override
     public String toString() {
@@ -67,10 +44,10 @@ public class QuantityLength {
         }
 
         // Convert source → base unit
-        double valueInBase = value * sourceUnit.getConversionFactor();
+        double valueInBase = sourceUnit.convertToBaseUnit(value);
 
         //Convert base → target
-        double result = valueInBase / targetUnit.getConversionFactor();
+        double result = targetUnit.convertFromBaseUnit(valueInBase);
 
         return Math.round(result * 100.0) / 100.0;
     }
@@ -94,20 +71,31 @@ public class QuantityLength {
         if(targetUnit == null ) throw new IllegalArgumentException("Units cannot be null");
 
         // Convert both to base unit (inches)
-        double value1InBase = length1.convertToBaseUnit();
-        double value2InBase = length2.convertToBaseUnit();
+        double value1InBase = length1.unit.convertToBaseUnit(length1.value);
+        double value2InBase = length2.unit.convertToBaseUnit(length2.value);
+
+        System.out.printf("value1 %f in inch, value2 %f in inch",value1InBase,value2InBase);
 
         // Add the converted values
         double sumInBase = value1InBase + value2InBase;
 
         // Convert sum to the unit of the first operand
-        double resultValue = sumInBase / targetUnit.getConversionFactor();
+        double resultValue = targetUnit.convertFromBaseUnit(sumInBase);
+        System.out.printf("result value in %s unit is %f",LengthUnit.valueOf(String.valueOf(targetUnit)),resultValue);
 
         return new QuantityLength(resultValue,targetUnit);
     }
 
     public QuantityLength add(QuantityLength other,LengthUnit target) {
         return add(this, other,target);
+    }
+    public static QuantityLength add(QuantityLength length1, QuantityLength length2) {
+
+        if (length1 == null || length2 == null)
+            throw new IllegalArgumentException("Length objects cannot be null");
+
+        // result should be returned in the unit of the first operand
+        return add(length1, length2, length1.unit);
     }
 
 }

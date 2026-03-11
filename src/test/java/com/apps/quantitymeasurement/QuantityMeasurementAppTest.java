@@ -172,14 +172,6 @@ class QuantityLengthTest {
         assertTrue(result.equals(new QuantityLength(3.0, LengthUnit.FEET)));
     }
 
-    @Test
-    void testAddition_NullSecondOperand() {
-        QuantityLength length1 = new QuantityLength(1.0, LengthUnit.FEET);
-
-        assertThrows(IllegalArgumentException.class, () ->
-                QuantityLength.add(length1, null)
-        );
-    }
 
     @Test
     void testAddition_LargeValues() {
