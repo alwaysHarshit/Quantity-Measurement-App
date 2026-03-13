@@ -119,16 +119,6 @@ public class QuantitySubtractionDivisionTest {
             q1.subtract(null);
         });
     }
-
-//    @Test
-//    void testSubtraction_NullTargetUnit() {
-//        QuantityClass<LengthUnit> q1 = new QuantityClass<>(10.0, FEET);
-//        QuantityClass<LengthUnit> q2 = new QuantityClass<>(5.0, FEET);
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            q1.subtract(q2, null);
-//        });
-//    }
-
     @Test
     void testSubtraction_CrossCategory() {
         QuantityClass<LengthUnit> length = new QuantityClass<>(10.0, FEET);
