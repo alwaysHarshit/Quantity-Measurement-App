@@ -4,9 +4,9 @@ public enum LengthUnit implements IMeasurable {
 
     //base unit is feet
     FEET(1.0),
-    INCHES(0.0833333),
+    INCHES(1.0 / 12.0),
     YARDS(3.0),
-    CM(0.0328);
+    CM(0.0328084);
 
     private final double conversionFactor;
 

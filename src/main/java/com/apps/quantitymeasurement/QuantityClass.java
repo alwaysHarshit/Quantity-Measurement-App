@@ -161,6 +161,8 @@ public class QuantityClass<U extends IMeasurable> {
         if (!Double.isFinite(q1.value) || !Double.isFinite(q2.value))
             throw new IllegalArgumentException("Operands must be finite");
 
+        q1.unit.validateOperationSupport(operation.name());
+
         //transform
         double base1 = q1.unit.convertToBaseUnit(q1.value);
         double base2 = q2.unit.convertToBaseUnit(q2.value);
