@@ -1,4 +1,4 @@
-package com.apps.quantitymeasurement;
+package com.apps.quantitymeasurement.utils;
 
 public class QuantityClass<U extends IMeasurable> {
     private final double value;
@@ -44,10 +44,7 @@ public class QuantityClass<U extends IMeasurable> {
         ) == 0;
     }
 
-     static <U extends IMeasurable> QuantityClass<U> add(
-            QuantityClass<U> quantity1,
-            QuantityClass<U> quantity2,
-            U targetUnit) {
+     static <U extends IMeasurable> QuantityClass<U> add(QuantityClass<U> quantity1, QuantityClass<U> quantity2, U targetUnit) {
 
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -59,9 +56,8 @@ public class QuantityClass<U extends IMeasurable> {
 
         return new QuantityClass<>(resultValue, targetUnit);
     }
-     static <U extends IMeasurable> QuantityClass<U> add(
-            QuantityClass<U> quantity1,
-            QuantityClass<U> quantity2) {
+
+     static <U extends IMeasurable> QuantityClass<U> add(QuantityClass<U> quantity1, QuantityClass<U> quantity2) {
         return add(quantity1, quantity2, quantity1.unit);
     }
 
@@ -75,10 +71,7 @@ public class QuantityClass<U extends IMeasurable> {
 
     /***************************** Subtraction Methods **********************************/
 
-     static <U extends IMeasurable> QuantityClass<U> subtract(
-            QuantityClass<U> q1,
-            QuantityClass<U> q2,
-            U targetUnit) {
+     static <U extends IMeasurable> QuantityClass<U> subtract(QuantityClass<U> q1, QuantityClass<U> q2, U targetUnit) {
 
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -92,8 +85,7 @@ public class QuantityClass<U extends IMeasurable> {
     }
 
     static <U extends IMeasurable> QuantityClass<U> subtract(QuantityClass<U> quantity1, QuantityClass<U> quantity2) {
-
-        return subtract(quantity1, quantity2, quantity1.unit);
+         return subtract(quantity1, quantity2, quantity1.unit);
     }
 
     public QuantityClass<U> subtract(QuantityClass<U> other, U targetUnit) {
@@ -105,10 +97,7 @@ public class QuantityClass<U extends IMeasurable> {
     }
 
     /***************************** Division Methods **********************************/
-     static <U extends IMeasurable> QuantityClass<U> divide(
-            QuantityClass<U> quantity1,
-            QuantityClass<U> quantity2,
-            U targetUnit) {
+     static <U extends IMeasurable> QuantityClass<U> divide(QuantityClass<U> quantity1, QuantityClass<U> quantity2, U targetUnit) {
 
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -133,7 +122,6 @@ public class QuantityClass<U extends IMeasurable> {
         return divide(this, other);
     }
 
-
     public QuantityClass<U> convertTo(U targetUnit) {
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -143,6 +131,7 @@ public class QuantityClass<U extends IMeasurable> {
         double resultValue = targetUnit.convertFromBaseUnit(valueInBase);
         return new QuantityClass<>(resultValue, targetUnit);
     }
+
     /***************************** Heler Methods **********************************/
 
 

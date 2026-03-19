@@ -1,5 +1,9 @@
 package com.apps.quantitymeasurement;
 
+import com.apps.quantitymeasurement.utils.IMeasurable;
+import com.apps.quantitymeasurement.utils.LengthUnit;
+import com.apps.quantitymeasurement.utils.QuantityClass;
+import com.apps.quantitymeasurement.utils.WeightUnit;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
