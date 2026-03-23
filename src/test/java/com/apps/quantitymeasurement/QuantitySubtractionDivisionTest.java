@@ -1,14 +1,14 @@
 package com.apps.quantitymeasurement;
 
-import com.apps.quantitymeasurement.utils.LengthUnit;
-import com.apps.quantitymeasurement.utils.QuantityClass;
-import com.apps.quantitymeasurement.utils.VolumeUnit;
-import com.apps.quantitymeasurement.utils.WeightUnit;
+import com.apps.quantitymeasurement.units.LengthUnit;
+import com.apps.quantitymeasurement.units.QuantityClass;
+import com.apps.quantitymeasurement.units.VolumeUnit;
+import com.apps.quantitymeasurement.units.WeightUnit;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static com.apps.quantitymeasurement.utils.LengthUnit.*;
-import static com.apps.quantitymeasurement.utils.WeightUnit.*;
-import static com.apps.quantitymeasurement.utils.VolumeUnit.*;
+import static com.apps.quantitymeasurement.units.LengthUnit.*;
+import static com.apps.quantitymeasurement.units.WeightUnit.*;
+import static com.apps.quantitymeasurement.units.VolumeUnit.*;
 
 public class QuantitySubtractionDivisionTest {
     private static final double EPSILON = 1e-6;

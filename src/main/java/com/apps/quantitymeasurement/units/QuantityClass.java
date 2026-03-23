@@ -1,4 +1,4 @@
-package com.apps.quantitymeasurement.utils;
+package com.apps.quantitymeasurement.units;
 
 public class QuantityClass<U extends IMeasurable> {
     private final double value;

@@ -1,6 +1,6 @@
 package com.apps.quantitymeasurement;
 
-import com.apps.quantitymeasurement.utils.*;
+import com.apps.quantitymeasurement.units.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

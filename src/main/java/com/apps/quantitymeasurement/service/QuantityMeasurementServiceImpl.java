@@ -1,12 +1,12 @@
 package com.apps.quantitymeasurement.service;
 
 
-import com.apps.quantitymeasurement.utils.IMeasurable;
-import com.apps.quantitymeasurement.utils.LengthUnit;
-import com.apps.quantitymeasurement.utils.QuantityClass;
-import com.apps.quantitymeasurement.utils.TemperatureUnit;
-import com.apps.quantitymeasurement.utils.VolumeUnit;
-import com.apps.quantitymeasurement.utils.WeightUnit;
+import com.apps.quantitymeasurement.units.IMeasurable;
+import com.apps.quantitymeasurement.units.LengthUnit;
+import com.apps.quantitymeasurement.units.QuantityClass;
+import com.apps.quantitymeasurement.units.TemperatureUnit;
+import com.apps.quantitymeasurement.units.VolumeUnit;
+import com.apps.quantitymeasurement.units.WeightUnit;
 import com.apps.quantitymeasurement.dto.QuantityDTO;
 import com.apps.quantitymeasurement.repository.IQuantityMeasurementRepository;
 import com.apps.quantitymeasurement.entity.QuantityMeasurementEntity;
@@ -14,8 +14,10 @@ import com.apps.quantitymeasurement.entity.QuantityMeasurementEntity;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.logging.Logger;
 
 public class QuantityMeasurementServiceImpl implements IQuantityMeasurementService {
+    private static final Logger LOGGER = Logger.getLogger(QuantityMeasurementServiceImpl.class.getName());
     private static final String LENGTH_TYPE = QuantityDTO.LengthUnit.class.getSimpleName();
     private static final String WEIGHT_TYPE = QuantityDTO.WeightUnit.class.getSimpleName();
     private static final String TEMPERATURE_TYPE = QuantityDTO.TemperatureUnit.class.getSimpleName();
@@ -32,6 +34,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
                 TEMPERATURE_TYPE, new MeasurementAdapter<>(this::toTemperatureUnit),
                 VOLUME_TYPE, new MeasurementAdapter<>(this::toVolumeUnit)
         );
+        LOGGER.info("Service wired with repository: " + repository.getClass().getSimpleName());
     }
 
     @Override

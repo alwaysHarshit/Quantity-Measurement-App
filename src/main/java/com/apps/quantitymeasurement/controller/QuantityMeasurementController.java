@@ -1,17 +1,20 @@
 package com.apps.quantitymeasurement.controller;
 
+import com.apps.quantitymeasurement.app.QuantityMeasurementApplication;
 import com.apps.quantitymeasurement.dto.QuantityDTO;
 import com.apps.quantitymeasurement.service.IQuantityMeasurementService;
 
-import java.util.Objects;
+import java.util.logging.Logger;
 
 public class QuantityMeasurementController {
 
+    private static final Logger LOGGER = Logger.getLogger(QuantityMeasurementController.class.getName());
+
     private final IQuantityMeasurementService service;
 
-    //cosntructor
     public QuantityMeasurementController(IQuantityMeasurementService service) {
-        this.service = Objects.requireNonNull(service, "Service cannot be null");
+        this.service = service;
+        LOGGER.info("Controller wired with service: " + service.getClass().getSimpleName());
     }
 
     //arthimatic operations
@@ -29,6 +32,7 @@ public class QuantityMeasurementController {
     public boolean performComparison(QuantityDTO thisQuantity,QuantityDTO thatQuantity){
         return service.compare(thisQuantity,thatQuantity);
     }
+
     public QuantityDTO performConverstion(QuantityDTO thisQuantity,QuantityDTO thatQuantity){
         return service.convert(thisQuantity,thatQuantity);
     }
@@ -41,12 +45,12 @@ public class QuantityMeasurementController {
         System.out.printf("%.1f %s%n", resultDTO.getValue(), resultDTO.getUnit());
     }
 
-    public void handleResult(QuantityDTO thisQuantity, QuantityDTO thatQuantity, String operator, QuantityDTO resultDTO) {
-        System.out.printf(
-                "%.1f %s %s %.1f %s = %.1f %s%n",
-                thisQuantity.getValue(), thisQuantity.getUnit(),
-                operator,
-                thatQuantity.getValue(), thatQuantity.getUnit(),
-                resultDTO.getValue(), resultDTO.getUnit());
+    public String handleResult(QuantityDTO thisQuantity, QuantityDTO thatQuantity, String operator, QuantityDTO resultDTO) {
+       return String.format("%.1f %s %s %.1f %s = %.1f %s%n"
+               ,thisQuantity.getValue(), thisQuantity.getUnit(),
+               operator,
+               thatQuantity.getValue(), thatQuantity.getUnit(),
+               resultDTO.getValue(), resultDTO.getUnit()
+                );
     }
 }

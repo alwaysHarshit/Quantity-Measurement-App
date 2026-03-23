@@ -6,10 +6,10 @@ import com.apps.quantitymeasurement.repository.IQuantityMeasurementRepository;
 import com.apps.quantitymeasurement.entity.QuantityMeasurementEntity;
 import com.apps.quantitymeasurement.service.IQuantityMeasurementService;
 import com.apps.quantitymeasurement.service.QuantityMeasurementServiceImpl;
-import com.apps.quantitymeasurement.utils.LengthUnit;
-import com.apps.quantitymeasurement.utils.QuantityClass;
-import com.apps.quantitymeasurement.utils.TemperatureUnit;
-import com.apps.quantitymeasurement.utils.WeightUnit;
+import com.apps.quantitymeasurement.units.LengthUnit;
+import com.apps.quantitymeasurement.units.QuantityClass;
+import com.apps.quantitymeasurement.units.TemperatureUnit;
+import com.apps.quantitymeasurement.units.WeightUnit;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
