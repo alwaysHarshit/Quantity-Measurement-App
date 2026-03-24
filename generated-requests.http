@@ -1,0 +1,639 @@
+### QuantityMeasurement API - Complete Test Suite
+### Base URL
+@baseUrl = http://localhost:8080/quantity
+
+# ============================================================
+# 🔹 COMPARE
+# ============================================================
+
+### Compare - 1 FEET == 12 INCHES (should be EQUAL)
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 12.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170122.200.json
+
+###
+
+### Compare - 1 FEET vs 6 INCHES (should NOT be equal)
+# @no-cookie-jar
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 6.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123.200.json
+
+###
+
+### Compare - 1 YARD vs 3 FEET (should be EQUAL)
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "YARD",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 3.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123.400.json
+
+###
+
+### Compare - 1 KG vs 1000 GRAMS (should be EQUAL)
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "KILOGRAM",
+    "measurementType": "WeightUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 1000.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170123-1.200.json
+
+###
+
+### Compare - EDGE CASE: null value (should throw error)
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": null,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 12.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-1.400.json
+
+###
+
+### Compare - EDGE CASE: mismatched types (LengthUnit vs WeightUnit)
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 1000.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170123-2.200.json
+
+###
+
+# ============================================================
+# 🔹 CONVERT
+# ============================================================
+
+### Convert - 1 FEET to INCHES
+POST {{baseUrl}}/convert
+Content-Type: application/json
+
+{
+  "sourceQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-2.400.json
+
+###
+
+### Convert - 1 YARD to FEET
+POST {{baseUrl}}/convert
+Content-Type: application/json
+
+{
+  "sourceQuantityDTO": {
+    "value": 1.0,
+    "unit": "YARD",
+    "measurementType": "LengthUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-3.400.json
+
+###
+
+### Convert - 1 KG to GRAM
+POST {{baseUrl}}/convert
+Content-Type: application/json
+
+{
+  "sourceQuantityDTO": {
+    "value": 1.0,
+    "unit": "KILOGRAM",
+    "measurementType": "WeightUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170123-4.400.json
+
+###
+
+### Convert - EDGE CASE: invalid unit string
+POST {{baseUrl}}/convert
+Content-Type: application/json
+
+{
+  "sourceQuantityDTO": {
+    "value": 1.0,
+    "unit": "INVALID_UNIT",
+    "measurementType": "LengthUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-5.400.json
+
+###
+
+# ============================================================
+# 🔹 ADD
+# ============================================================
+
+### Add - 1 FEET + 12 INCHES
+POST {{baseUrl}}/add
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 12.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-3.200.json
+
+###
+
+### Add - 500 GRAM + 500 GRAM
+POST {{baseUrl}}/add
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 500.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 500.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170123-4.200.json
+
+###
+
+### Add - EDGE CASE: zero values
+POST {{baseUrl}}/add
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 0.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 0.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-5.200.json
+
+###
+
+# ============================================================
+# 🔹 ADD WITH TARGET UNIT
+# ============================================================
+
+### Add with Target - 1 FEET + 12 INCHES → result in INCHES
+POST {{baseUrl}}/add-with-target-unit
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 12.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-6.200.json
+
+###
+
+### Add with Target - 1 FEET + 1 YARD → result in FEET
+POST {{baseUrl}}/add-with-target-unit
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 1.0,
+    "unit": "YARD",
+    "measurementType": "LengthUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-6.400.json
+
+###
+
+### Add with Target - 500 GRAM + 0.5 KG → result in GRAM
+POST {{baseUrl}}/add-with-target-unit
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 500.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 0.5,
+    "unit": "KILOGRAM",
+    "measurementType": "WeightUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170123-7.200.json
+<> 2026-03-24T165634-1.200.json
+
+###
+
+# ============================================================
+# 🔹 SUBTRACT
+# ============================================================
+
+### Subtract - 2 FEET - 12 INCHES
+POST {{baseUrl}}/subtract
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 2.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 12.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170123-8.200.json
+<> 2026-03-24T165634-2.200.json
+
+###
+
+### Subtract - 1 KG - 500 GRAM
+POST {{baseUrl}}/subtract
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "KILOGRAM",
+    "measurementType": "WeightUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 500.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170124.200.json
+<> 2026-03-24T165634-3.200.json
+
+###
+
+### Subtract - EDGE CASE: negative result (6 INCHES - 1 FEET)
+POST {{baseUrl}}/subtract
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 6.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170124-1.200.json
+<> 2026-03-24T165634-4.200.json
+
+###
+
+# ============================================================
+# 🔹 SUBTRACT WITH TARGET UNIT
+# ============================================================
+
+### Subtract with Target - 2 FEET - 12 INCHES → result in INCHES
+POST {{baseUrl}}/subtract-with-target-unit
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 2.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 12.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170124-2.200.json
+<> 2026-03-24T165634-5.200.json
+
+###
+
+### Subtract with Target - 1 KG - 200 GRAM → result in GRAM
+POST {{baseUrl}}/subtract-with-target-unit
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "KILOGRAM",
+    "measurementType": "WeightUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 200.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  },
+  "targetQuantityDTO": {
+    "value": 0.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170124-3.200.json
+<> 2026-03-24T165634-6.200.json
+
+###
+
+# ============================================================
+# 🔹 DIVIDE
+# ============================================================
+
+### Divide - 1 FEET / 6 INCHES
+POST {{baseUrl}}/divide
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 6.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170124-4.200.json
+<> 2026-03-24T165634-7.200.json
+
+###
+
+### Divide - 1 KG / 500 GRAM
+POST {{baseUrl}}/divide
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "KILOGRAM",
+    "measurementType": "WeightUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 500.0,
+    "unit": "GRAM",
+    "measurementType": "WeightUnit"
+  }
+}
+
+<> 2026-03-24T170124-5.200.json
+<> 2026-03-24T165634-8.200.json
+
+###
+
+### Divide - EDGE CASE: divide by zero
+POST {{baseUrl}}/divide
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": {
+    "value": 1.0,
+    "unit": "FEET",
+    "measurementType": "LengthUnit"
+  },
+  "thatQuantityDTO": {
+    "value": 0.0,
+    "unit": "INCHES",
+    "measurementType": "LengthUnit"
+  }
+}
+
+<> 2026-03-24T170124-6.200.json
+<> 2026-03-24T165634-9.200.json
+
+###
+
+# ============================================================
+# 📊 HISTORY APIs
+# ============================================================
+
+### History - Get all ADD operations
+GET {{baseUrl}}/history/operation/add
+
+<> 2026-03-24T170124-7.200.json
+<> 2026-03-24T165634-10.200.json
+
+###
+
+### History - Get all SUBTRACT operations
+GET {{baseUrl}}/history/operation/subtract
+
+<> 2026-03-24T170124-8.200.json
+<> 2026-03-24T165634-11.200.json
+
+###
+
+### History - Get all COMPARE operations
+GET {{baseUrl}}/history/operation/compare
+
+<> 2026-03-24T170125.200.json
+<> 2026-03-24T165634-12.200.json
+
+###
+
+### History - Get all CONVERT operations
+GET {{baseUrl}}/history/operation/convert
+
+<> 2026-03-24T170125-1.200.json
+<> 2026-03-24T165634-13.200.json
+
+###
+
+### History - Get all DIVIDE operations
+GET {{baseUrl}}/history/operation/divide
+
+<> 2026-03-24T170125-2.200.json
+<> 2026-03-24T165635.200.json
+
+###
+
+### History - Get by type LengthUnit
+GET {{baseUrl}}/history/type/LengthUnit
+
+<> 2026-03-24T170125-3.200.json
+<> 2026-03-24T165635-1.200.json
+
+###
+
+### History - Get by type WeightUnit
+GET {{baseUrl}}/history/type/WeightUnit
+
+<> 2026-03-24T170125-4.200.json
+<> 2026-03-24T165635-2.200.json
+
+###
+
+### History - Get all errored requests
+GET {{baseUrl}}/history/errored
+
+<> 2026-03-24T170125-5.200.json
+<> 2026-03-24T165828.200.json
+<> 2026-03-24T165635-3.200.json
+
+###
