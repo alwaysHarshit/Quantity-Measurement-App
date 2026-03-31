@@ -1,1 +1,9 @@
 .idea
+.gitattributes
+mvnw.cmd
+HELP.md
+auth-requests.http
+generated-requests.http
+Quantity Measurement App.iml
+Swagger UI.pdf
+mvnw
